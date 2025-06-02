@@ -1,54 +1,35 @@
-# React + TypeScript + Vite
+# Shadcn-Style Context Solution
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React TypeScript project demonstrating how to implement **style context** for reusable UI components with variant support, similar to shadcn/ui components but with enhanced styling capabilities.
 
-Currently, two official plugins are available:
+### Example: Accordion Component
+The accordion component demonstrates the style context pattern with multiple variants:
+- `default` variant with red background
+- `secondary` variant with blue background
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Structure
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+src/
+├── components/
+│   └── ui/
+│       ├── accordion.tsx           # Example component with variants
+│       └── utils/
+│           └── create-style-context.tsx  # Core style context utility
+├── App.tsx                         # Demo application
+└── main.tsx                        # Application entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Usage Example
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```tsx
+// Provider component sets the variant context
+<Accordion type="multiple" variant="secondary">
+  <AccordionItem value="1">
+    <AccordionTrigger>Item 1</AccordionTrigger>
+    <AccordionContent>Content 1</AccordionContent>
+  </AccordionItem>
+</Accordion>
 ```
+
+The `variant="secondary"` prop is automatically propagated to all child components through the style context.
